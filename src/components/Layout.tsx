@@ -22,7 +22,12 @@ export function Layout({ children }: { children: ReactNode }) {
 
   if (shell === 'customer' || shell === 'vendor' || shell === 'admin') {
     // Dashboards render full-screen; bottom nav is injected by each dashboard via DashboardBottomNav
-    return <div className="min-h-screen bg-charcoal-50 pb-24 lg:pb-0">{children}</div>;
+    return (
+      <div className="min-h-screen bg-charcoal-50 pb-24 lg:pb-0">
+        {children}
+        <AIChatbot />
+      </div>
+    );
   }
 
   return (

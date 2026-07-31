@@ -10,11 +10,18 @@ const VALUES = [
   { icon: Target, title: 'Transparency', desc: 'Clear pricing, honest timelines, no surprises.' },
 ];
 
+const FOUNDER = {
+  name: 'Mrs. Sandhya',
+  role: 'Founder & Head',
+  bio: '15+ years of experience in bridal makeover and event management. B.Com graduate.',
+  initials: 'S',
+};
+
 const TEAM = [
-  { name: 'Aanya Mehta', role: 'Founder & Lead Planner', image: IMAGES.brideJewelry },
-  { name: 'Rohan Kapoor', role: 'Head of Vendor Network', image: IMAGES.coupleSmiling },
-  { name: 'Ishita Rao', role: 'Creative Director', image: IMAGES.brideEarring },
-  { name: 'Vikram Shah', role: 'Head of Technology', image: IMAGES.coupleSofa },
+  { name: 'Mrs. Durga Sankari', role: 'Operations Manager', bio: 'Computer graduate', initials: 'DS' },
+  { name: 'Arumugam', role: 'Event Coordinator', initials: 'A' },
+  { name: 'Sulthana', role: 'Event Coordinator', initials: 'S' },
+  { name: 'Divya', role: 'Event Coordinator', initials: 'D' },
 ];
 
 export function AboutPage() {
@@ -37,7 +44,7 @@ export function AboutPage() {
           <div>
             <SectionHeading eyebrow="Our story" title={<>From one wedding to <span className="gold-text">2,400+</span></>} />
             <div className="mt-4 space-y-4 text-charcoal-600">
-              <p>Weddon began in 2018 when our founder, Aanya, planned her sister’s wedding and discovered just how fragmented the industry was — a dozen vendors, scattered spreadsheets, and zero visibility.</p>
+              <p>Weddon was founded by <strong className="text-charcoal-900">Mrs. Sandhya</strong>, who brings 15+ years of hands-on experience in bridal makeover and event management to every wedding we plan — discovering along the way just how fragmented the industry was: a dozen vendors, scattered spreadsheets, and zero visibility.</p>
               <p>Today, Weddon is a full-service luxury platform that brings planning, a vetted marketplace, couture, rentals, and an AI assistant under one elegant roof. We’ve managed celebrations across 42 cities and counting.</p>
               <p>Our promise is simple: every wedding, beautifully managed — so your only job is to be present for the moments that matter.</p>
             </div>
@@ -68,17 +75,34 @@ export function AboutPage() {
 
       {/* Team */}
       <Section className="!pt-0">
-        <SectionHeading center title={<>The people behind <span className="gold-text">Weddon</span></>} subtitle="Senior planners, artists, and technologists obsessed with your big day." />
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <SectionHeading center title={<>The people behind <span className="gold-text">Weddon</span></>} subtitle="Senior planners and coordinators obsessed with your big day." />
+
+        {/* Founder — highlighted */}
+        <div className="mt-10 overflow-hidden rounded-3xl border border-gold-200 bg-gold-soft/40 p-6 shadow-luxe sm:p-10 animate-fade-up">
+          <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left">
+            <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-full bg-gold-gradient text-4xl font-serif font-bold text-charcoal-900 shadow-gold ring-4 ring-white">
+              {FOUNDER.initials}
+            </div>
+            <div>
+              <span className="inline-flex items-center rounded-full bg-charcoal-900 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-gold-300">
+                Founder &amp; Head
+              </span>
+              <h3 className="mt-2 font-serif text-2xl text-charcoal-900 sm:text-3xl">{FOUNDER.name}</h3>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-charcoal-600">{FOUNDER.bio}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Rest of the team */}
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {TEAM.map((t, i) => (
-            <div key={t.name} className="group overflow-hidden rounded-3xl border border-charcoal-100 bg-white shadow-soft transition-all hover:-translate-y-1.5 hover:shadow-luxe animate-fade-up" style={{ animationDelay: `${i * 70}ms` }}>
-              <div className="relative h-64 overflow-hidden">
-                <img src={t.image} alt={t.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+            <div key={t.name} className="group rounded-3xl border border-charcoal-100 bg-white p-6 text-center shadow-soft transition-all hover:-translate-y-1.5 hover:shadow-card animate-fade-up" style={{ animationDelay: `${i * 70}ms` }}>
+              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-charcoal-900 text-xl font-serif font-bold text-gold-300 shadow-soft">
+                {t.initials}
               </div>
-              <div className="p-4 text-center">
-                <h3 className="font-serif text-lg text-charcoal-900">{t.name}</h3>
-                <div className="text-xs text-gold-600">{t.role}</div>
-              </div>
+              <h3 className="mt-4 font-serif text-lg text-charcoal-900">{t.name}</h3>
+              <div className="text-xs text-gold-600">{t.role}</div>
+              {t.bio && <p className="mt-1 text-xs text-charcoal-400">{t.bio}</p>}
             </div>
           ))}
         </div>

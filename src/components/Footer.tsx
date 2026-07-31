@@ -86,10 +86,10 @@ export function Footer() {
               <Mail className="h-4 w-4 text-gold-400" /> hello@weddon.com
             </div>
             <div className="flex items-center gap-3 text-sm text-charcoal-300">
-              <Phone className="h-4 w-4 text-gold-400" /> +91 98765 43210
+              <Phone className="h-4 w-4 text-gold-400" /> +91 81244 72943 / +91 90031 19026
             </div>
             <div className="flex items-center gap-3 text-sm text-charcoal-300">
-              <MapPin className="h-4 w-4 text-gold-400" /> Bandra West, Mumbai 400050
+              <MapPin className="h-4 w-4 text-gold-400" /> Nungambakkam High Road, Chennai
             </div>
           </div>
 

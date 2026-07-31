@@ -5,7 +5,7 @@ export const BRAND = {
   name: 'Weddon',
   tagline: 'One Promise. Endless Memories.',
   logoIcon: '/assets/branding/weddonicon.png',
-  whatsapp: 'https://wa.me/919876543210',
+  whatsapp: 'https://wa.me/918124472943',
 };
 
 export const IMAGES = {
@@ -329,26 +329,27 @@ export const FOOTER_LINKS = {
 };
 
 export const SOCIAL_LINKS = [
-  { label: 'WhatsApp', href: 'https://wa.me/919876543210', type: 'whatsapp' },
+  { label: 'WhatsApp', href: 'https://wa.me/918124472943', type: 'whatsapp' },
   { label: 'Instagram', href: 'https://instagram.com', type: 'instagram' },
   { label: 'Facebook', href: 'https://facebook.com', type: 'facebook' },
   { label: 'YouTube', href: 'https://youtube.com', type: 'youtube' },
 ];
 
 export const MOBILE_NAV_LANDING = [
-  { label: 'Home', icon: 'Home', route: 'home' as const },
-  { label: 'Explore', icon: 'Search', route: 'services' as const },
-  { label: 'Book', icon: 'CalendarPlus', route: 'contact' as const },
-  { label: 'Gallery', icon: 'Heart', route: 'gallery' as const },
-  { label: 'Account', icon: 'User', route: 'login' as const },
+  { label: 'Home', icon: 'Home', route: 'home' as const, highlight: false },
+  { label: 'Explore', icon: 'Search', route: 'services' as const, highlight: false },
+  { label: 'Book', icon: 'CalendarPlus', route: 'contact' as const, highlight: true },
+  { label: 'Gallery', icon: 'Heart', route: 'gallery' as const, highlight: false },
+  { label: 'Account', icon: 'User', route: 'login' as const, highlight: false },
 ];
 
 export const MOBILE_NAV_CUSTOMER = [
-  { label: 'Dashboard', icon: 'LayoutDashboard', key: 'overview' as const },
-  { label: 'My Wedding', icon: 'CalendarCheck', key: 'timeline' as const },
-  { label: 'Messages', icon: 'MessageSquare', key: 'support' as const },
-  { label: 'Payments', icon: 'Wallet', key: 'payments' as const },
-  { label: 'Profile', icon: 'User', key: 'account' as const },
+  { label: 'Dashboard', icon: 'LayoutDashboard', key: 'overview' as const, highlight: false },
+  { label: 'My Wedding', icon: 'CalendarCheck', key: 'timeline' as const, highlight: false },
+  { label: 'AI Planner', icon: 'Sparkles', key: 'ai' as const, highlight: true },
+  { label: 'Messages', icon: 'MessageSquare', key: 'support' as const, highlight: false },
+  { label: 'Payments', icon: 'Wallet', key: 'payments' as const, highlight: false },
+  { label: 'Profile', icon: 'User', key: 'account' as const, highlight: false },
 ];
 
 export const MOBILE_NAV_VENDOR = [

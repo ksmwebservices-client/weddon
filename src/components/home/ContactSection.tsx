@@ -20,8 +20,8 @@ export function ContactSection() {
             <div className="mt-8 space-y-3">
               {[
                 { icon: Mail, label: 'Email us', value: 'hello@weddon.com', sub: 'We reply within 24 hours' },
-                { icon: Phone, label: 'Call us', value: '+91 98765 43210', sub: 'Mon–Sat, 10am–8pm IST' },
-                { icon: MapPin, label: 'Visit the studio', value: 'Bandra West, Mumbai 400050', sub: 'By appointment' },
+                { icon: Phone, label: 'Call us', value: '+91 81244 72943 / +91 90031 19026', sub: 'Mon–Sat, 10am–8pm IST' },
+                { icon: MapPin, label: 'Visit the studio', value: 'Nungambakkam High Road, Chennai', sub: 'By appointment' },
                 { icon: Clock, label: 'Response time', value: 'Under 24 hours', sub: 'Every single day' },
               ].map((c) => (
                 <div key={c.label} className="flex items-start gap-4 rounded-2xl border border-charcoal-100 bg-white p-4 shadow-soft">

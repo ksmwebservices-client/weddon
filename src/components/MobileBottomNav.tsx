@@ -25,7 +25,7 @@ export function LandingBottomNav() {
           navigate(item.route as Route);
         };
         return (
-          <NavButton key={item.label} icon={Icon} label={item.label} active={isActive} onClick={onClick} highlight={item.label === 'Book'} />
+          <NavButton key={item.label} icon={Icon} label={item.label} active={isActive} onClick={onClick} highlight={item.highlight} />
         );
       })}
     </BottomNavShell>
@@ -33,13 +33,13 @@ export function LandingBottomNav() {
 }
 
 /* ---------- Dashboard bottom navs ---------- */
-export function DashboardBottomNav({ items, active, onSelect }: { items: { label: string; icon: string; key: string }[]; active: string; onSelect: (key: string) => void }) {
+export function DashboardBottomNav({ items, active, onSelect }: { items: { label: string; icon: string; key: string; highlight?: boolean }[]; active: string; onSelect: (key: string) => void }) {
   return (
     <BottomNavShell>
       {items.map((item) => {
         const Icon = ICONS[item.icon] ?? Home;
         return (
-          <NavButton key={item.key} icon={Icon} label={item.label} active={active === item.key} onClick={() => onSelect(item.key)} />
+          <NavButton key={item.key} icon={Icon} label={item.label} active={active === item.key} onClick={() => onSelect(item.key)} highlight={item.highlight} />
         );
       })}
     </BottomNavShell>

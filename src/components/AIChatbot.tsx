@@ -81,8 +81,9 @@ export function AIChatbot() {
       {/* Launcher */}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-charcoal-900 text-gold-400 shadow-luxe transition-transform hover:scale-110 sm:bottom-6 sm:right-6"
+        className="fixed bottom-24 right-5 z-[60] flex h-14 w-14 items-center justify-center rounded-full bg-charcoal-900 text-gold-400 shadow-luxe transition-transform hover:scale-110 lg:bottom-6 lg:right-6"
         aria-label="AI Assistant"
+        style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
       >
         {!open && <span className="absolute inset-0 rounded-full bg-gold-400/40 animate-pulse-ring" />}
         {open ? <X className="h-6 w-6 relative" /> : <Sparkles className="h-6 w-6 relative" />}
@@ -90,7 +91,7 @@ export function AIChatbot() {
 
       {/* Panel */}
       {open && (
-        <div className="fixed bottom-24 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm animate-scale-in sm:right-6">
+        <div className="fixed bottom-[10.5rem] right-4 z-[60] w-[calc(100vw-2rem)] max-w-sm animate-scale-in lg:bottom-24 lg:right-6">
           <div className="overflow-hidden rounded-3xl border border-charcoal-100 bg-white shadow-luxe">
             {/* Header */}
             <div className="flex items-center gap-3 bg-charcoal-900 p-4 text-white">
