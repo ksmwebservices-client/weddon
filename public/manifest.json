@@ -1,0 +1,50 @@
+{
+  "name": "Weddon — One Promise. Endless Memories.",
+  "short_name": "Weddon",
+  "description": "A complete wedding planning & management platform.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#5E1320",
+  "theme_color": "#5E1320",
+  "categories": ["lifestyle", "business"],
+  "icons": [
+    {
+      "src": "/assets/branding/weddonicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/branding/weddonicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/branding/weddonicon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "apple touch icon"
+    },
+    {
+      "src": "/assets/branding/weddonicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Book Consultation",
+      "url": "/#/contact",
+      "icons": [{ "src": "/assets/branding/weddonicon.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Gallery",
+      "url": "/#/gallery",
+      "icons": [{ "src": "/assets/branding/weddonicon.png", "sizes": "192x192" }]
+    }
+  ]
+}
