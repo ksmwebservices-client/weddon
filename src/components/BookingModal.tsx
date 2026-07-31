@@ -25,7 +25,7 @@ export function BookingModal() {
   const [step, setStep] = useState(0);
 
   const [form, setForm] = useState({
-    service: '',
+    services: [] as string[],
     pkg: '',
     wedding_date: '',
     location: '',
@@ -42,7 +42,10 @@ export function BookingModal() {
     if (open) {
       setStep(0);
       reset();
-      setForm((f) => ({ ...f, service: presetService ?? f.service }));
+      setForm((f) => ({
+        ...f,
+        services: presetService ? Array.from(new Set([...f.services, presetService])) : f.services,
+      }));
     }
   }, [open, presetService, reset]);
 
@@ -57,9 +60,16 @@ export function BookingModal() {
 
   const set = (k: keyof typeof form, v: string | string[]) => setForm((f) => ({ ...f, [k]: v }));
 
+  const toggleService = (v: string) => {
+    setForm((f) => ({
+      ...f,
+      services: f.services.includes(v) ? f.services.filter((s) => s !== v) : [...f.services, v],
+    }));
+  };
+
   const canNext = () => {
     switch (step) {
-      case 0: return !!form.service;
+      case 0: return form.services.length > 0;
       case 1: return !!form.pkg;
       case 2: return !!form.wedding_date;
       case 3: return !!form.location;
@@ -82,7 +92,7 @@ export function BookingModal() {
       phone: form.phone || undefined,
       wedding_date: form.wedding_date || undefined,
       city: form.location || undefined,
-      service: `${form.service}${form.pkg ? ` · ${form.pkg}` : ''}`,
+      service: `${form.services.join(', ')}${form.pkg ? ` · ${form.pkg}` : ''}`,
       budget: form.budget || undefined,
       guests: form.guests ? Number(form.guests) : undefined,
       message: form.requirements || 'Booking enquiry via modal',
@@ -112,7 +122,7 @@ export function BookingModal() {
                   <p className="text-xs text-gold-200">A planner will craft your quote within 24 hours</p>
                 </div>
               </div>
-              <button onClick={close} className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20">
+              <button type="button" onClick={close} className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -155,11 +165,14 @@ export function BookingModal() {
                 </div>
 
                 {step === 0 && (
-                  <ChoiceGrid
-                    value={form.service}
-                    onChange={(v) => set('service', v)}
-                    options={SERVICE_CATEGORIES.map((s) => ({ value: s.title, label: s.title, sub: s.short }))}
-                  />
+                  <>
+                    <p className="mb-3 text-sm text-charcoal-500">Select one or more services you need — tap to select, tap again to deselect.</p>
+                    <MultiChoiceGrid
+                      values={form.services}
+                      onToggle={toggleService}
+                      options={SERVICE_CATEGORIES.map((s) => ({ value: s.title, label: s.title, sub: s.short }))}
+                    />
+                  </>
                 )}
                 {step === 1 && (
                   <ChoiceGrid
@@ -208,12 +221,13 @@ export function BookingModal() {
                       {form.images.map((img, i) => (
                         <div key={i} className="group relative aspect-square overflow-hidden rounded-xl border border-charcoal-200">
                           <img src={img} alt="" className="h-full w-full object-cover" />
-                          <button onClick={() => set('images', form.images.filter((_, idx) => idx !== i))} className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-charcoal-900/70 text-white opacity-0 transition-opacity group-hover:opacity-100">
+                          <button type="button" onClick={() => set('images', form.images.filter((_, idx) => idx !== i))} className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-charcoal-900/70 text-white opacity-0 transition-opacity group-hover:opacity-100">
                             <X className="h-3.5 w-3.5" />
                           </button>
                         </div>
                       ))}
                       <button
+                        type="button"
                         onClick={() => set('images', [...form.images, 'https://images.pexels.com/photos/16120244/pexels-photo-16120244.jpeg?auto=compress&cs=tinysrgb&h=200&w=200'])}
                         className="flex aspect-square flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-charcoal-200 text-charcoal-400 transition-colors hover:border-gold-300 hover:text-gold-600"
                       >
@@ -241,7 +255,7 @@ export function BookingModal() {
                     <div className="rounded-2xl border border-charcoal-100 bg-charcoal-50/50 p-4">
                       <div className="text-xs font-semibold uppercase tracking-wide text-charcoal-400 mb-2">Your booking summary</div>
                       <dl className="grid gap-2 text-sm sm:grid-cols-2">
-                        <SummaryRow label="Service" value={form.service} />
+                        <SummaryRow label="Service" value={form.services.join(', ')} />
                         <SummaryRow label="Package" value={form.pkg} />
                         <SummaryRow label="Date" value={form.wedding_date} />
                         <SummaryRow label="Location" value={form.location} />
@@ -259,15 +273,15 @@ export function BookingModal() {
           {/* Footer actions */}
           {!success && (
             <div className="flex items-center justify-between border-t border-charcoal-100 p-4 sm:px-7">
-              <button onClick={back} disabled={step === 0 || loading} className="flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium text-charcoal-600 transition-colors hover:bg-charcoal-50 disabled:opacity-40">
+              <button type="button" onClick={back} disabled={step === 0 || loading} className="flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium text-charcoal-600 transition-colors hover:bg-charcoal-50 disabled:opacity-40">
                 <ArrowLeft className="h-4 w-4" /> Back
               </button>
               {step < STEPS.length - 1 ? (
-                <button onClick={next} disabled={!canNext()} className="flex items-center gap-2 rounded-full bg-charcoal-900 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-charcoal-800 disabled:opacity-40">
+                <button type="button" onClick={next} disabled={!canNext()} className="flex items-center gap-2 rounded-full bg-charcoal-900 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-charcoal-800 disabled:opacity-40">
                   Continue <ArrowRight className="h-4 w-4" />
                 </button>
               ) : (
-                <button onClick={onSubmit} disabled={loading || !canNext()} className="flex items-center gap-2 rounded-full bg-gold-gradient px-6 py-2.5 text-sm font-semibold text-charcoal-900 transition-all hover:shadow-gold disabled:opacity-40">
+                <button type="button" onClick={onSubmit} disabled={loading || !canNext()} className="flex items-center gap-2 rounded-full bg-gold-gradient px-6 py-2.5 text-sm font-semibold text-charcoal-900 transition-all hover:shadow-gold disabled:opacity-40">
                   {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Submitting…</> : <><CheckCircle2 className="h-4 w-4" /> Submit Booking</>}
                 </button>
               )}
@@ -305,7 +319,35 @@ function SuccessView({ name, onClose }: { name: string; onClose: () => void }) {
           </div>
         ))}
       </div>
-      <button onClick={onClose} className="mt-6 btn-gold">Done</button>
+      <button type="button" onClick={onClose} className="mt-6 btn-gold">Done</button>
+    </div>
+  );
+}
+
+function MultiChoiceGrid({ values, onToggle, options }: { values: string[]; onToggle: (v: string) => void; options: { value: string; label: string; sub: string }[] }) {
+  return (
+    <div className="grid gap-2.5 sm:grid-cols-2">
+      {options.map((o) => {
+        const selected = values.includes(o.value);
+        return (
+          <button
+            type="button"
+            key={o.value}
+            onClick={() => onToggle(o.value)}
+            className={`flex items-center justify-between rounded-2xl border p-4 text-left transition-all ${
+              selected ? 'border-gold-400 bg-gold-50 ring-2 ring-gold-200' : 'border-charcoal-200 bg-white hover:border-charcoal-300'
+            }`}
+          >
+            <div>
+              <div className={`text-sm font-semibold ${selected ? 'text-gold-800' : 'text-charcoal-900'}`}>{o.label}</div>
+              <div className="text-xs text-charcoal-500">{o.sub}</div>
+            </div>
+            <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md ${selected ? 'bg-gold-gradient text-charcoal-900' : 'border border-charcoal-300'}`}>
+              {selected && <Check className="h-3 w-3" strokeWidth={3} />}
+            </span>
+          </button>
+        );
+      })}
     </div>
   );
 }
@@ -317,6 +359,7 @@ function ChoiceGrid({ value, onChange, options }: { value: string; onChange: (v:
         const selected = value === o.value;
         return (
           <button
+            type="button"
             key={o.value}
             onClick={() => onChange(o.value)}
             className={`flex items-center justify-between rounded-2xl border p-4 text-left transition-all ${

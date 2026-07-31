@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { supabase, type Enquiry, type EnquiryInput } from '@/lib/supabase';
 
 export function useEnquiry() {
@@ -6,7 +6,7 @@ export function useEnquiry() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  async function submit(input: EnquiryInput) {
+  const submit = useCallback(async (input: EnquiryInput) => {
     setLoading(true);
     setError(null);
     setSuccess(false);
@@ -19,13 +19,13 @@ export function useEnquiry() {
     setSuccess(true);
     setLoading(false);
     return true;
-  }
+  }, []);
 
-  function reset() {
+  const reset = useCallback(() => {
     setError(null);
     setSuccess(false);
     setLoading(false);
-  }
+  }, []);
 
   return { submit, loading, error, success, reset };
 }
